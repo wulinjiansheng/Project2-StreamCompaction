@@ -35,15 +35,11 @@ void InitNaivePrefixSum(int *origin,int *result,int N)
 	int *in;
 	int *out;
 	int* temp;
-	cudaEvent_t start, end;
-	cudaEventCreate(&start);
-	cudaEventCreate(&end);
-
 	cudaMalloc((void**)&in,sizeof(int)*N);
 	cudaMalloc((void**)&out,sizeof(int)*N);
 	cudaMemcpy(in, origin, sizeof(int)*N, cudaMemcpyHostToDevice);	
 	int numBlocks = (int)ceil(N/(float)blockSize);
-	cudaEventRecord(start, 0);
+	double t = gettime();
 	for(int d=1;(int)pow(2.0,d-1)<=N;d++)
 	{
         NaivePrefixSum<<<numBlocks,blockSize>>> (in,out,N,d);
@@ -53,10 +49,8 @@ void InitNaivePrefixSum(int *origin,int *result,int N)
 		out = temp;
 	}
 	out = in;
-	cudaEventRecord(end, 0);
-	cudaEventSynchronize(end);
-	cudaEventElapsedTime(&time, start, end);
-	cout<<"  Run time:"<<time<<" ms"<<endl;
+	t = gettime()-t;
+	cout<<"  Run time:"<<1000*t<<" ms"<<endl;
 
 	result[0] = 0;
 	cudaMemcpy(result+1, out, sizeof(int)*N, cudaMemcpyDeviceToHost); 
@@ -92,9 +86,6 @@ void InitPrefixSumSharedM(int *origin,int *result,int N)
 {
 	float time;
 	int *in,*out;
-	cudaEvent_t start, end;
-	cudaEventCreate(&start);
-	cudaEventCreate(&end);
 	cudaMalloc((void**)&in,sizeof(int)*N);
 	cudaMalloc((void**)&out,sizeof(int)*N);
 	cudaMemcpy(in, origin, sizeof(int)*N, cudaMemcpyHostToDevice);
@@ -105,13 +96,10 @@ void InitPrefixSumSharedM(int *origin,int *result,int N)
 		return;
 	}
 
-	cudaEventRecord(start, 0);
+	double t = gettime();
     PrefixSumSharedM<<<numBlocks,blockSize>>> (in,out,N);
-	cudaEventRecord(end, 0);
-	cudaEventSynchronize(end);
-	cudaEventElapsedTime(&time, start, end);
-
-	cout<<"  Run time:"<<time<<" ms"<<endl;
+	t = gettime() - t;
+	cout<<"  Run time:"<<1000*t<<" ms"<<endl;
 	result[0] = 0;
 	cudaMemcpy(result+1, out, sizeof(int)*N, cudaMemcpyDeviceToHost); 
 	cudaFree(in);
@@ -161,16 +149,13 @@ void InitOPPrefixSumSharedM(int *origin,int *result,int N)
 	float time;
 	int *in,*out,*sums,*incr;
 	int numBlocks = (int)ceil(N/(float)blockSize);
-	cudaEvent_t start, end;
-	cudaEventCreate(&start);
-	cudaEventCreate(&end);
 	cudaMalloc((void**)&in,sizeof(int)*N);
 	cudaMalloc((void**)&out,sizeof(int)*N);
 	cudaMalloc((void**)&sums,sizeof(int)*numBlocks);
 	cudaMalloc((void**)&incr,sizeof(int)*numBlocks);
 	cudaMemcpy(in, origin, sizeof(int)*N, cudaMemcpyHostToDevice);
-	cudaEventRecord(start, 0);
 
+	double t = gettime();
 	//Get sums for each block
 	OPPrefixSumSharedM<<<numBlocks,blockSize>>> (in,out,N,sums);
 
@@ -193,11 +178,8 @@ void InitOPPrefixSumSharedM(int *origin,int *result,int N)
 		AddInc<<<numBlocks,blockSize>>> (out,incr);
 	}	
 
-	cudaEventRecord(end, 0);
-	cudaEventSynchronize(end);
-	cudaEventElapsedTime(&time, start, end);
-
-	cout<<"  Run time:"<<time<<" ms"<<endl;
+	t = gettime()-t;
+	cout<<"  Run time:"<<1000*t<<" ms"<<endl;
 	result[0] = 0;
 	cudaMemcpy(result+1, out, sizeof(int)*(N-1), cudaMemcpyDeviceToHost); 
 
@@ -252,9 +234,6 @@ int* InitStreamCompact(int *origin,int N,int &l)
 	int *in,*newin,*out,*final,*sums,*incr,*maxindex;
 	bool *inbool;
 	int numBlocks = (int)ceil(N/(float)blockSize);
-	cudaEvent_t start, end;
-	cudaEventCreate(&start);
-	cudaEventCreate(&end);
 	cudaMalloc((void**)&maxindex,sizeof(int)*1);
 	cudaMalloc((void**)&inbool,sizeof(bool)*N);
 	cudaMalloc((void**)&in,sizeof(int)*N);
@@ -263,8 +242,8 @@ int* InitStreamCompact(int *origin,int N,int &l)
 	cudaMalloc((void**)&sums,sizeof(int)*numBlocks);
 	cudaMalloc((void**)&incr,sizeof(int)*numBlocks);
 	cudaMemcpy(in, origin, sizeof(int)*N, cudaMemcpyHostToDevice);
-	cudaEventRecord(start, 0);
-
+	
+	double t = gettime();
 	//Scatter
 	GPUScatter<<<numBlocks,blockSize>>> (in,newin,inbool,N);
 
@@ -300,11 +279,9 @@ int* InitStreamCompact(int *origin,int N,int &l)
 	//Generate final result
 	cudaMalloc((void**)&final,sizeof(int)*max);
 	StreamCompact<<<numBlocks,blockSize>>> (in,out,inbool,final,N);
-	cudaEventRecord(end, 0);
-	cudaEventSynchronize(end);
-	cudaEventElapsedTime(&time, start, end);
 
-	cout<<"  Run time:"<<time<<" ms"<<endl;
+	t = gettime()-t;
+	cout<<"  Run time:"<<1000*t<<" ms"<<endl;
 	int *result = new int[max];
 	cudaMemcpy(result, final, sizeof(int)*max, cudaMemcpyDeviceToHost); 
 	cudaFree(in);
@@ -376,8 +353,8 @@ void main()
 
 	//Part1
 	cout<<"Serial Version PrefixSum:"<<endl;
-	double t = gettime();
 	int* result = new int[originN];
+	double t = gettime();
 	PrefixSum(origin,result,originN);
 	t = gettime() - t;
 	cout<<"  Run time:"<<1000*t<<" ms"<<endl;
