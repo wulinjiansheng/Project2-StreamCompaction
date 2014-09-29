@@ -146,7 +146,6 @@ __global__ void AddInc(int  *in,int *incs)
 
 void InitOPPrefixSumSharedM(int *origin,int *result,int N)
 {
-	float time;
 	int *in,*out,*sums,*incr;
 	int numBlocks = (int)ceil(N/(float)blockSize);
 	cudaMalloc((void**)&in,sizeof(int)*N);

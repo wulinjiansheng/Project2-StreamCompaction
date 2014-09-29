@@ -1,4 +1,4 @@
-﻿Build started 9/28/2014 7:49:56 PM.
+﻿Build started 9/28/2014 9:29:56 PM.
      1>Project "D:\Graduate\second-year-first-semester\CIS-565\Project2-StreamCompaction\Project\Project2\Project2.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\Project2.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -8,7 +8,7 @@
        Skipping target "AddCudaCompilePropsDeps" because all output files are up-to-date with respect to the input files.
        CudaBuild:
          Compiling CUDA source file kernel.cu...
-         cmd.exe /C "C:\Users\Bo\AppData\Local\Temp\tmp2a06590b7f314050bcc8e2a71b6b091b.cmd"
+         cmd.exe /C "C:\Users\Bo\AppData\Local\Temp\tmpdcfd4034a7ed4182bbd2318d35e2ef9f.cmd"
          "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.5\bin\nvcc.exe" -gencode=arch=compute_20,code=\"sm_20,compute_20\" --use-local-env --cl-version 2010 -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.5\include"     --keep-dir Release -maxrregcount=0  --machine 32 --compile -cudart static     -DWIN32 -DNDEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /O2 /Zi  /MD  " -o Release\kernel.cu.obj "D:\Graduate\second-year-first-semester\CIS-565\Project2-StreamCompaction\Project\Project2\kernel.cu"
          
          D:\Graduate\second-year-first-semester\CIS-565\Project2-StreamCompaction\Project\Project2>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.5\bin\nvcc.exe" -gencode=arch=compute_20,code=\"sm_20,compute_20\" --use-local-env --cl-version 2010 -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.5\include"     --keep-dir Release -maxrregcount=0  --machine 32 --compile -cudart static     -DWIN32 -DNDEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /O2 /Zi  /MD  " -o Release\kernel.cu.obj "D:\Graduate\second-year-first-semester\CIS-565\Project2-StreamCompaction\Project\Project2\kernel.cu" 
@@ -29,11 +29,9 @@
          
      1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(87): warning : variable "time" was declared but never referenced
          
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(149): warning : variable "time" was declared but never referenced
+     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(232): warning : variable "time" was declared but never referenced
          
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(233): warning : variable "time" was declared but never referenced
-         
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(337): warning : return type of function "main" must be "int"
+     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(336): warning : return type of function "main" must be "int"
          
      1>c:\program files\nvidia gpu computing toolkit\cuda\v6.5\include\math_functions.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>c:\program files\nvidia gpu computing toolkit\cuda\v6.5\include\math_functions.h(853): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
@@ -86,11 +84,9 @@
          
      1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(87): warning : variable "time" was declared but never referenced
          
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(149): warning : variable "time" was declared but never referenced
+     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(232): warning : variable "time" was declared but never referenced
          
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(233): warning : variable "time" was declared but never referenced
-         
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(337): warning : return type of function "main" must be "int"
+     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(336): warning : return type of function "main" must be "int"
          
      1>c:\program files\nvidia gpu computing toolkit\cuda\v6.5\include\math_functions.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
      1>c:\program files\nvidia gpu computing toolkit\cuda\v6.5\include\math_functions.h(853): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
@@ -104,8 +100,7 @@
          kernel.cu
      1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(34): warning C4101: 'time' : unreferenced local variable
      1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(87): warning C4101: 'time' : unreferenced local variable
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(149): warning C4101: 'time' : unreferenced local variable
-     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(233): warning C4101: 'time' : unreferenced local variable
+     1>D:/Graduate/second-year-first-semester/CIS-565/Project2-StreamCompaction/Project/Project2/kernel.cu(232): warning C4101: 'time' : unreferenced local variable
        ClCompile:
          All outputs are up-to-date.
        Link:
@@ -131,4 +126,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.87
+Time Elapsed 00:00:12.11
